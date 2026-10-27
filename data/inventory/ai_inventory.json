@@ -1,0 +1,151 @@
+{
+  "data_notice": "Synthetic enterprise AI portfolio inventory; all values are illustrative.",
+  "use_cases": [
+    {
+      "data_notice": "Synthetic; illustrative inventory row.",
+      "use_case_id": "UC-001",
+      "domain": "underwriting",
+      "status": "pilot",
+      "risk_tier": "medium",
+      "pattern": "document_extraction",
+      "platform_services_reused": [
+        "Evaluation Harness",
+        "Human Review Queue"
+      ],
+      "owner_role": "Underwriting product owner",
+      "evaluation_set": true,
+      "control_owner_defined": true
+    },
+    {
+      "data_notice": "Synthetic; illustrative inventory row.",
+      "use_case_id": "UC-002",
+      "domain": "underwriting",
+      "status": "concept",
+      "risk_tier": "high",
+      "pattern": "retrieval_qa",
+      "platform_services_reused": [
+        "Retrieval Index",
+        "Evaluation Harness",
+        "Human Review Queue"
+      ],
+      "owner_role": "Wording service owner",
+      "evaluation_set": true,
+      "control_owner_defined": true
+    },
+    {
+      "data_notice": "Synthetic; illustrative inventory row.",
+      "use_case_id": "UC-003",
+      "domain": "claims",
+      "status": "planned",
+      "risk_tier": "high",
+      "pattern": "classification",
+      "platform_services_reused": [],
+      "owner_role": "Claims domain owner",
+      "evaluation_set": false,
+      "control_owner_defined": true
+    },
+    {
+      "data_notice": "Synthetic; illustrative inventory row.",
+      "use_case_id": "UC-004",
+      "domain": "claims",
+      "status": "pilot",
+      "risk_tier": "medium",
+      "pattern": "document_extraction",
+      "platform_services_reused": [
+        "Evaluation Harness"
+      ],
+      "owner_role": "Claims operations owner",
+      "evaluation_set": true,
+      "control_owner_defined": true
+    },
+    {
+      "data_notice": "Synthetic; illustrative inventory row.",
+      "use_case_id": "UC-005",
+      "domain": "finance",
+      "status": "concept",
+      "risk_tier": "medium",
+      "pattern": "forecast_assistance",
+      "platform_services_reused": [
+        "Evaluation Harness",
+        "Model Gateway"
+      ],
+      "owner_role": null,
+      "evaluation_set": false,
+      "control_owner_defined": false
+    },
+    {
+      "data_notice": "Synthetic; illustrative inventory row.",
+      "use_case_id": "UC-006",
+      "domain": "actuarial",
+      "status": "planned",
+      "risk_tier": "medium",
+      "pattern": "retrieval_qa",
+      "platform_services_reused": [
+        "Retrieval Index"
+      ],
+      "owner_role": null,
+      "evaluation_set": false,
+      "control_owner_defined": false
+    },
+    {
+      "data_notice": "Synthetic; illustrative inventory row.",
+      "use_case_id": "UC-007",
+      "domain": "operations",
+      "status": "active",
+      "risk_tier": "low",
+      "pattern": "workflow_assistance",
+      "platform_services_reused": [
+        "Human Review Queue",
+        "Audit Events",
+        "Evaluation Harness"
+      ],
+      "owner_role": "Operations owner",
+      "evaluation_set": true,
+      "control_owner_defined": true
+    },
+    {
+      "data_notice": "Synthetic; illustrative inventory row.",
+      "use_case_id": "UC-008",
+      "domain": "finance",
+      "status": "planned",
+      "risk_tier": "low",
+      "pattern": "classification",
+      "platform_services_reused": [
+        "Model Gateway"
+      ],
+      "owner_role": "Finance product owner",
+      "evaluation_set": true,
+      "control_owner_defined": true
+    },
+    {
+      "data_notice": "Synthetic; illustrative inventory row.",
+      "use_case_id": "UC-009",
+      "domain": "actuarial",
+      "status": "concept",
+      "risk_tier": "high",
+      "pattern": "document_extraction",
+      "platform_services_reused": [
+        "Evaluation Harness",
+        "Audit Events"
+      ],
+      "owner_role": "Actuarial data owner",
+      "evaluation_set": true,
+      "control_owner_defined": true
+    },
+    {
+      "data_notice": "Synthetic; illustrative inventory row.",
+      "use_case_id": "UC-010",
+      "domain": "operations",
+      "status": "pilot",
+      "risk_tier": "medium",
+      "pattern": "retrieval_qa",
+      "platform_services_reused": [
+        "Retrieval Index",
+        "Evaluation Harness"
+      ],
+      "owner_role": "Service operations owner",
+      "evaluation_set": true,
+      "control_owner_defined": true
+    }
+  ]
+}

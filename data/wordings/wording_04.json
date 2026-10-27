@@ -1,0 +1,23 @@
+{
+  "data_notice": "Synthetic; illustrative wording.",
+  "documents": [
+    {
+      "document_id": "WD-CHARLIE-V1",
+      "data_notice": "Synthetic; illustrative wording.",
+      "contract_id": "TREATY-CHARLIE",
+      "version": "V1",
+      "clauses": [
+        {
+          "clause_id": "CHARLIE-V1-EXC-01",
+          "kind": "exclusions",
+          "text": "The wording excludes cyber events unless a separate endorsement expressly restores cover."
+        },
+        {
+          "clause_id": "CHARLIE-V1-TERR-01",
+          "kind": "territorial_scope",
+          "text": "The territorial scope is the listed Global Region territories."
+        }
+      ]
+    }
+  ]
+}

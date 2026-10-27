@@ -1,0 +1,13 @@
+{
+  "data_notice": "Synthetic illustrative gate thresholds, not requirements.",
+  "submission_intake": {
+    "minimum_labelled_examples": 20,
+    "minimum_field_accuracy": 0.95
+  },
+  "wording_qa": {
+    "minimum_labelled_questions": 20,
+    "minimum_refusal_correctness": 0.9,
+    "minimum_citation_validity": 0.95,
+    "minimum_outcome_accuracy": 0.9
+  }
+}

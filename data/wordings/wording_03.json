@@ -1,0 +1,28 @@
+{
+  "data_notice": "Synthetic; illustrative wording.",
+  "documents": [
+    {
+      "document_id": "WD-BRAVO-V1",
+      "data_notice": "Synthetic; illustrative wording.",
+      "contract_id": "TREATY-BRAVO",
+      "version": "V1",
+      "clauses": [
+        {
+          "clause_id": "BRAVO-V1-HOURS-01",
+          "kind": "hours_clause",
+          "text": "Loss occurrences from the same event are grouped within a 48-hour period."
+        },
+        {
+          "clause_id": "BRAVO-V1-REIN-01",
+          "kind": "reinstatements",
+          "text": "The limit includes no paid reinstatements."
+        },
+        {
+          "clause_id": "BRAVO-V1-CLAIM-01",
+          "kind": "claims_notification",
+          "text": "The cedant should notify the reinsurer within 45 days after becoming aware of a claim."
+        }
+      ]
+    }
+  ]
+}

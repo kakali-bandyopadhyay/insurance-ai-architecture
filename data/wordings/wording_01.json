@@ -1,0 +1,43 @@
+{
+  "data_notice": "Synthetic; illustrative wording.",
+  "documents": [
+    {
+      "document_id": "WD-ALPHA-V1",
+      "data_notice": "Synthetic; illustrative wording.",
+      "contract_id": "TREATY-ALPHA",
+      "version": "V1",
+      "clauses": [
+        {
+          "clause_id": "ALPHA-V1-EXC-01",
+          "kind": "exclusions",
+          "text": "The wording excludes gradual pollution and wear and tear, subject to the stated exceptions."
+        },
+        {
+          "clause_id": "ALPHA-V1-HOURS-01",
+          "kind": "hours_clause",
+          "text": "Loss occurrences from the same event are grouped within a 72-hour period."
+        },
+        {
+          "clause_id": "ALPHA-V1-REIN-01",
+          "kind": "reinstatements",
+          "text": "The limit includes one paid reinstatement."
+        },
+        {
+          "clause_id": "ALPHA-V1-TERR-01",
+          "kind": "territorial_scope",
+          "text": "The territorial scope is limited to the listed North Region territories."
+        },
+        {
+          "clause_id": "ALPHA-V1-SANC-01",
+          "kind": "sanctions_clause",
+          "text": "No payment is due where payment would breach the illustrative sanctions wording."
+        },
+        {
+          "clause_id": "ALPHA-V1-CLAIM-01",
+          "kind": "claims_notification",
+          "text": "The cedant should notify the reinsurer within 30 days after becoming aware of a claim."
+        }
+      ]
+    }
+  ]
+}

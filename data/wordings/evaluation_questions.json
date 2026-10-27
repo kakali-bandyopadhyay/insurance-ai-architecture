@@ -1,0 +1,162 @@
+{
+  "data_notice": "Synthetic; author-labelled evaluation set. Labels were written before evaluation runs.",
+  "questions": [
+    {
+      "question_id": "Q01",
+      "data_notice": "Synthetic; author-labelled expected outcome.",
+      "question": "What is the hours clause for TREATY-ALPHA V1?",
+      "expected_outcome": "ANSWERED",
+      "contract_id": "TREATY-ALPHA",
+      "version": "V1"
+    },
+    {
+      "question_id": "Q02",
+      "data_notice": "Synthetic; author-labelled expected outcome.",
+      "question": "How many reinstatements does TREATY-ALPHA V1 allow?",
+      "expected_outcome": "ANSWERED",
+      "contract_id": "TREATY-ALPHA",
+      "version": "V1"
+    },
+    {
+      "question_id": "Q03",
+      "data_notice": "Synthetic; author-labelled expected outcome.",
+      "question": "What territorial scope is stated in TREATY-ALPHA V1?",
+      "expected_outcome": "ANSWERED",
+      "contract_id": "TREATY-ALPHA",
+      "version": "V1"
+    },
+    {
+      "question_id": "Q04",
+      "data_notice": "Synthetic; author-labelled expected outcome.",
+      "question": "Which exclusions apply in TREATY-ALPHA V1?",
+      "expected_outcome": "ANSWERED",
+      "contract_id": "TREATY-ALPHA",
+      "version": "V1"
+    },
+    {
+      "question_id": "Q05",
+      "data_notice": "Synthetic; author-labelled expected outcome.",
+      "question": "When should claims be notified under TREATY-ALPHA V1?",
+      "expected_outcome": "ANSWERED",
+      "contract_id": "TREATY-ALPHA",
+      "version": "V1"
+    },
+    {
+      "question_id": "Q06",
+      "data_notice": "Synthetic; author-labelled expected outcome.",
+      "question": "What is the sanctions clause in TREATY-ALPHA V1?",
+      "expected_outcome": "ANSWERED",
+      "contract_id": "TREATY-ALPHA",
+      "version": "V1"
+    },
+    {
+      "question_id": "Q07",
+      "data_notice": "Synthetic; author-labelled expected outcome.",
+      "question": "What is the hours clause for TREATY-BRAVO V1?",
+      "expected_outcome": "ANSWERED",
+      "contract_id": "TREATY-BRAVO",
+      "version": "V1"
+    },
+    {
+      "question_id": "Q08",
+      "data_notice": "Synthetic; author-labelled expected outcome.",
+      "question": "How many reinstatements does TREATY-BRAVO V1 allow?",
+      "expected_outcome": "ANSWERED",
+      "contract_id": "TREATY-BRAVO",
+      "version": "V1"
+    },
+    {
+      "question_id": "Q09",
+      "data_notice": "Synthetic; author-labelled expected outcome.",
+      "question": "What exclusions apply in TREATY-CHARLIE V1?",
+      "expected_outcome": "ANSWERED",
+      "contract_id": "TREATY-CHARLIE",
+      "version": "V1"
+    },
+    {
+      "question_id": "Q10",
+      "data_notice": "Synthetic; author-labelled expected outcome.",
+      "question": "What is the hours clause for TREATY-DELTA V1?",
+      "expected_outcome": "ANSWERED",
+      "contract_id": "TREATY-DELTA",
+      "version": "V1"
+    },
+    {
+      "question_id": "Q11",
+      "data_notice": "Synthetic; author-labelled expected outcome.",
+      "question": "What is the premium payment deadline in TREATY-ALPHA V1?",
+      "expected_outcome": "INSUFFICIENT_EVIDENCE",
+      "contract_id": "TREATY-ALPHA",
+      "version": "V1"
+    },
+    {
+      "question_id": "Q12",
+      "data_notice": "Synthetic; author-labelled expected outcome.",
+      "question": "What is the notice address in TREATY-BRAVO V1?",
+      "expected_outcome": "INSUFFICIENT_EVIDENCE",
+      "contract_id": "TREATY-BRAVO",
+      "version": "V1"
+    },
+    {
+      "question_id": "Q13",
+      "data_notice": "Synthetic; author-labelled expected outcome.",
+      "question": "What currency must claims be paid in under TREATY-CHARLIE V1?",
+      "expected_outcome": "INSUFFICIENT_EVIDENCE",
+      "contract_id": "TREATY-CHARLIE",
+      "version": "V1"
+    },
+    {
+      "question_id": "Q14",
+      "data_notice": "Synthetic; author-labelled expected outcome.",
+      "question": "What is the arbitration seat in TREATY-DELTA V1?",
+      "expected_outcome": "INSUFFICIENT_EVIDENCE",
+      "contract_id": "TREATY-DELTA",
+      "version": "V1"
+    },
+    {
+      "question_id": "Q15",
+      "data_notice": "Synthetic; author-labelled expected outcome.",
+      "question": "What are the cyber exclusions in TREATY-UNKNOWN V1?",
+      "expected_outcome": "WRONG_CONTRACT",
+      "contract_id": "TREATY-UNKNOWN",
+      "version": "V1"
+    },
+    {
+      "question_id": "Q16",
+      "data_notice": "Synthetic; author-labelled expected outcome.",
+      "question": "What hours clause applies to TREATY-OMEGA V1?",
+      "expected_outcome": "WRONG_CONTRACT",
+      "contract_id": "TREATY-OMEGA",
+      "version": "V1"
+    },
+    {
+      "question_id": "Q17",
+      "data_notice": "Synthetic; author-labelled expected outcome.",
+      "question": "How many reinstatements in TREATY-ZETA V2?",
+      "expected_outcome": "WRONG_CONTRACT",
+      "contract_id": "TREATY-ZETA",
+      "version": "V2"
+    },
+    {
+      "question_id": "Q18",
+      "data_notice": "Synthetic; author-labelled expected outcome.",
+      "question": "Compare hours clauses across TREATY-ALPHA versions.",
+      "expected_outcome": "CONFLICT",
+      "contract_id": "TREATY-ALPHA"
+    },
+    {
+      "question_id": "Q19",
+      "data_notice": "Synthetic; author-labelled expected outcome.",
+      "question": "Do reinstatements match between versions of TREATY-ALPHA?",
+      "expected_outcome": "CONFLICT",
+      "contract_id": "TREATY-ALPHA"
+    },
+    {
+      "question_id": "Q20",
+      "data_notice": "Synthetic; author-labelled expected outcome.",
+      "question": "What territorial scope differs across TREATY-ALPHA versions?",
+      "expected_outcome": "CONFLICT",
+      "contract_id": "TREATY-ALPHA"
+    }
+  ]
+}

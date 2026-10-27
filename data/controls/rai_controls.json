@@ -1,0 +1,104 @@
+{
+  "data_notice": "Synthetic control design; illustrative mappings, not regulatory requirements.",
+  "controls": [
+    {
+      "control_id": "RAI-01",
+      "owner_role": "Synthetic Wording Product Lead (synthetic)",
+      "risk": "Hallucination: unsupported wording answer",
+      "control": "Decline when no clause evidence is retrieved.",
+      "status": "implemented",
+      "implementation_reference": "insure_ai.wording.ask",
+      "evidence_produced": "Outcome code INSUFFICIENT_EVIDENCE in QA evaluation."
+    },
+    {
+      "control_id": "RAI-02",
+      "owner_role": "Synthetic Wording Quality Lead (synthetic)",
+      "risk": "Hallucination: fabricated or unsupported citations",
+      "control": "Validate cited clause IDs against retrieved pack.",
+      "status": "implemented",
+      "implementation_reference": "insure_ai.wording.validate_citations",
+      "evidence_produced": "Citation validity numerator and denominator in QA evaluation."
+    },
+    {
+      "control_id": "RAI-03",
+      "owner_role": "Synthetic Underwriting AI Lead (synthetic)",
+      "risk": "Wrong contract used",
+      "control": "Decline when requested contract is absent from the pack.",
+      "status": "implemented",
+      "implementation_reference": "insure_ai.wording.ask",
+      "evidence_produced": "WRONG_CONTRACT expected-outcome cases."
+    },
+    {
+      "control_id": "RAI-04",
+      "owner_role": "Synthetic Wording Product Lead (synthetic)",
+      "risk": "Version conflict hidden",
+      "control": "Surface differing version clauses without choosing operative version.",
+      "status": "implemented",
+      "implementation_reference": "insure_ai.wording.ask",
+      "evidence_produced": "CONFLICT answers cite clauses from each differing version."
+    },
+    {
+      "control_id": "RAI-05",
+      "owner_role": "Synthetic Intake Operations Lead (synthetic)",
+      "risk": "Invalid intake proceeds",
+      "control": "Route each validation failure to human review with reason codes.",
+      "status": "implemented",
+      "implementation_reference": "insure_ai.intake.process_submissions",
+      "evidence_produced": "Reason codes and zero auto-accept count."
+    },
+    {
+      "control_id": "RAI-06",
+      "owner_role": "Synthetic Privacy Lead (synthetic)",
+      "risk": "Privacy and PII exposure",
+      "control": "Use synthetic data only; production minimization and PII controls remain to be designed.",
+      "status": "described_only",
+      "implementation_reference": "described only",
+      "evidence_produced": "Synthetic-data notice and explicit scope boundary."
+    },
+    {
+      "control_id": "RAI-07",
+      "owner_role": "Synthetic AI Platform Lead (synthetic)",
+      "risk": "Prompt injection",
+      "control": "No model prompt exists in default mode; production prompt-injection controls remain a design item.",
+      "status": "described_only",
+      "implementation_reference": "described only",
+      "evidence_produced": "Architecture marks model gateway as described only."
+    },
+    {
+      "control_id": "RAI-08",
+      "owner_role": "Synthetic Responsible AI Lead (synthetic)",
+      "risk": "Triage bias",
+      "control": "Assess class and source impacts before a production triage model; this prototype uses fixed rules.",
+      "status": "described_only",
+      "implementation_reference": "described only",
+      "evidence_produced": "Standards identify bias review as a production requirement."
+    },
+    {
+      "control_id": "RAI-09",
+      "owner_role": "Synthetic Underwriting Operations Lead (synthetic)",
+      "risk": "Human oversight missing",
+      "control": "Keep explicit review outcomes for failed intake and wording conflicts.",
+      "status": "implemented",
+      "implementation_reference": "insure_ai.intake.process_submissions",
+      "evidence_produced": "HUMAN_REVIEW_REQUIRED for every failed validation."
+    },
+    {
+      "control_id": "RAI-10",
+      "owner_role": "Synthetic Model Governance Lead (synthetic)",
+      "risk": "Model change untracked",
+      "control": "Version models/prompts and rerun evaluations before production changes.",
+      "status": "described_only",
+      "implementation_reference": "described only",
+      "evidence_produced": "Model lifecycle requirements in standards and review criteria."
+    },
+    {
+      "control_id": "RAI-11",
+      "owner_role": "Synthetic AI Governance Lead (synthetic)",
+      "risk": "Decisions not reconstructable",
+      "control": "Maintain an append-only record of inputs, outcome, reason codes and citations per run.",
+      "status": "described_only",
+      "implementation_reference": "described only",
+      "evidence_produced": "Control described in the matrix; application code does not write a per-run decision record."
+    }
+  ]
+}

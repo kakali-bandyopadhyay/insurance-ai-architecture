@@ -1,0 +1,23 @@
+{
+  "data_notice": "Synthetic; illustrative wording.",
+  "documents": [
+    {
+      "document_id": "WD-DELTA-V1",
+      "data_notice": "Synthetic; illustrative wording.",
+      "contract_id": "TREATY-DELTA",
+      "version": "V1",
+      "clauses": [
+        {
+          "clause_id": "DELTA-V1-HOURS-01",
+          "kind": "hours_clause",
+          "text": "Loss occurrences from the same event are grouped within a 24-hour period."
+        },
+        {
+          "clause_id": "DELTA-V1-SANC-01",
+          "kind": "sanctions_clause",
+          "text": "The wording suspends payment where payment would breach the illustrative sanctions condition."
+        }
+      ]
+    }
+  ]
+}

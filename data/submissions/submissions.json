@@ -1,0 +1,401 @@
+{
+  "data_notice": "Synthetic; all records and numeric values are invented and illustrative.",
+  "submissions": [
+    {
+      "data_notice": "Synthetic; all records and numeric values are invented and illustrative.",
+      "submission_id": "SUB-001",
+      "documents": [
+        {
+          "kind": "cover_note",
+          "text": "Insured: Alder Components Ltd\nLine of business: Property\nTerritory: US Midwest\nLimit: 8,000,000\nAttachment: 500,000\nDeductible: 25,000\nInception date: 2026-01-01"
+        },
+        {
+          "kind": "schedule_of_values_summary",
+          "text": "Total insured value: 12,000,000\nCurrency: USD"
+        },
+        {
+          "kind": "loss_run_summary",
+          "text": "2021: $12,000\n2022: $18,000\n2023: $9,000\n2024: $0\n2025: $14,000"
+        }
+      ],
+      "expected": {
+        "insured": "Alder Components Ltd",
+        "line_of_business": "Property",
+        "territory": "US Midwest",
+        "total_insured_value": 12000000,
+        "limit": 8000000,
+        "attachment": 500000,
+        "deductible": 25000,
+        "loss_runs": [
+          {
+            "year": 2021,
+            "amount": 12000
+          },
+          {
+            "year": 2022,
+            "amount": 18000
+          },
+          {
+            "year": 2023,
+            "amount": 9000
+          },
+          {
+            "year": 2024,
+            "amount": 0
+          },
+          {
+            "year": 2025,
+            "amount": 14000
+          }
+        ],
+        "inception_date": "2026-01-01"
+      }
+    },
+    {
+      "data_notice": "Synthetic; all records and numeric values are invented and illustrative.",
+      "submission_id": "SUB-002",
+      "documents": [
+        {
+          "kind": "cover_note",
+          "text": "Insured: Beacon Fabrication Inc\nLine of business: Property\nTerritory: US Northeast\nLimit: 15,000,000\nAttachment: 1,000,000\nDeductible: 50,000\nInception date: 2026-02-01"
+        },
+        {
+          "kind": "schedule_of_values_summary",
+          "text": "Total insured value: 25,000,000\nCurrency: USD"
+        },
+        {
+          "kind": "loss_run_summary",
+          "text": "2021: $22,000\n2022: $18,000\n2023: $24,000\n2024: $9,000\n2025: $11,000"
+        }
+      ],
+      "expected": {
+        "insured": "Beacon Fabrication Inc",
+        "line_of_business": "Property",
+        "territory": "US Northeast",
+        "total_insured_value": 25000000,
+        "limit": 15000000,
+        "attachment": 1000000,
+        "deductible": 50000,
+        "loss_runs": [
+          {
+            "year": 2021,
+            "amount": 22000
+          },
+          {
+            "year": 2022,
+            "amount": 18000
+          },
+          {
+            "year": 2023,
+            "amount": 24000
+          },
+          {
+            "year": 2024,
+            "amount": 9000
+          },
+          {
+            "year": 2025,
+            "amount": 11000
+          }
+        ],
+        "inception_date": "2026-02-01"
+      }
+    },
+    {
+      "data_notice": "Synthetic; all records and numeric values are invented and illustrative.",
+      "submission_id": "SUB-003",
+      "documents": [
+        {
+          "kind": "cover_note",
+          "text": "Insured: Cedar Logistics Group\nLine of business: Marine\nTerritory: UK\nLimit: 12,000,000\nAttachment: 750,000\nDeductible: 40,000\nInception date: 2026-03-15"
+        },
+        {
+          "kind": "schedule_of_values_summary",
+          "text": "Total insured value: 18,000,000\nCurrency: USD"
+        },
+        {
+          "kind": "loss_run_summary",
+          "text": "2021: $8,000\n2022: $12,000\n2023: $0\n2024: $14,000\n2025: $16,000"
+        }
+      ],
+      "expected": {
+        "insured": "Cedar Logistics Group",
+        "line_of_business": "Marine",
+        "territory": "UK",
+        "total_insured_value": 18000000,
+        "limit": 12000000,
+        "attachment": 750000,
+        "deductible": 40000,
+        "loss_runs": [
+          {
+            "year": 2021,
+            "amount": 8000
+          },
+          {
+            "year": 2022,
+            "amount": 12000
+          },
+          {
+            "year": 2023,
+            "amount": 0
+          },
+          {
+            "year": 2024,
+            "amount": 14000
+          },
+          {
+            "year": 2025,
+            "amount": 16000
+          }
+        ],
+        "inception_date": "2026-03-15"
+      }
+    },
+    {
+      "data_notice": "Synthetic; all records and numeric values are invented and illustrative.",
+      "submission_id": "SUB-004",
+      "documents": [
+        {
+          "kind": "cover_note",
+          "text": "Insured: Delta Food Systems\nLine of business: Property\nTerritory: Canada\nLimit: 20,000,000\nAttachment: 1,500,000\nDeductible: 75,000\nInception date: 2026-04-01"
+        },
+        {
+          "kind": "schedule_of_values_summary",
+          "text": "Total insured value: 32,000,000\nCurrency: USD"
+        },
+        {
+          "kind": "loss_run_summary",
+          "text": "2021: $31,000\n2022: $28,000\n2023: $14,000\n2024: $22,000\n2025: $19,000"
+        }
+      ],
+      "expected": {
+        "insured": "Delta Food Systems",
+        "line_of_business": "Property",
+        "territory": "Canada",
+        "total_insured_value": 32000000,
+        "limit": 20000000,
+        "attachment": 1500000,
+        "deductible": 75000,
+        "loss_runs": [
+          {
+            "year": 2021,
+            "amount": 31000
+          },
+          {
+            "year": 2022,
+            "amount": 28000
+          },
+          {
+            "year": 2023,
+            "amount": 14000
+          },
+          {
+            "year": 2024,
+            "amount": 22000
+          },
+          {
+            "year": 2025,
+            "amount": 19000
+          }
+        ],
+        "inception_date": "2026-04-01"
+      }
+    },
+    {
+      "data_notice": "Synthetic; all records and numeric values are invented and illustrative.",
+      "submission_id": "SUB-005",
+      "documents": [
+        {
+          "kind": "cover_note",
+          "text": "Insured: Elm River Energy\nLine of business: Energy\nTerritory: Australia\nLimit: 30,000,000\nAttachment: 2,500,000\nDeductible: 100,000\nInception date: 2026-05-01"
+        },
+        {
+          "kind": "schedule_of_values_summary",
+          "text": "Total insured value: 45,000,000\nCurrency: USD"
+        },
+        {
+          "kind": "loss_run_summary",
+          "text": "2021: $55,000\n2022: $41,000\n2023: $62,000\n2024: $32,000\n2025: $48,000"
+        }
+      ],
+      "expected": {
+        "insured": "Elm River Energy",
+        "line_of_business": "Energy",
+        "territory": "Australia",
+        "total_insured_value": 45000000,
+        "limit": 30000000,
+        "attachment": 2500000,
+        "deductible": 100000,
+        "loss_runs": [
+          {
+            "year": 2021,
+            "amount": 55000
+          },
+          {
+            "year": 2022,
+            "amount": 41000
+          },
+          {
+            "year": 2023,
+            "amount": 62000
+          },
+          {
+            "year": 2024,
+            "amount": 32000
+          },
+          {
+            "year": 2025,
+            "amount": 48000
+          }
+        ],
+        "inception_date": "2026-05-01"
+      }
+    },
+    {
+      "data_notice": "Synthetic; all records and numeric values are invented and illustrative.",
+      "submission_id": "SUB-006",
+      "documents": [
+        {
+          "kind": "cover_note",
+          "text": "Insured: Fable Retail Network\nLine of business: Property\nTerritory: US South\nLimit: 10,000,000\nAttachment: 500,000\nDeductible: 20,000\nInception date: 2026-06-01"
+        },
+        {
+          "kind": "schedule_of_values_summary",
+          "text": "Total insured value: 15,000,000\nCurrency: USD"
+        },
+        {
+          "kind": "loss_run_summary",
+          "text": "2021: $10,000\n2022: $9,000\n2024: $14,000\n2025: $8,000"
+        }
+      ],
+      "expected": {
+        "insured": "Fable Retail Network",
+        "line_of_business": "Property",
+        "territory": "US South",
+        "total_insured_value": 15000000,
+        "limit": 10000000,
+        "attachment": 500000,
+        "deductible": 20000,
+        "loss_runs": [
+          {
+            "year": 2021,
+            "amount": 10000
+          },
+          {
+            "year": 2022,
+            "amount": 9000
+          },
+          {
+            "year": 2024,
+            "amount": 14000
+          },
+          {
+            "year": 2025,
+            "amount": 8000
+          }
+        ],
+        "inception_date": "2026-06-01"
+      }
+    },
+    {
+      "data_notice": "Synthetic; all records and numeric values are invented and illustrative.",
+      "submission_id": "SUB-007",
+      "documents": [
+        {
+          "kind": "cover_note",
+          "text": "Insured: Granite Medical Supply\nLine of business: Casualty\nTerritory: UK\nLimit: 11,000,000\nAttachment: 250,000\nDeductible: 10,000\nInception date: 2026-07-01"
+        },
+        {
+          "kind": "schedule_of_values_summary",
+          "text": "Total insured value: 9,000,000\nCurrency: USD"
+        },
+        {
+          "kind": "loss_run_summary",
+          "text": "2021: $4,000\n2022: $5,000\n2023: $6,000\n2024: $3,000\n2025: $7,000"
+        }
+      ],
+      "expected": {
+        "insured": "Granite Medical Supply",
+        "line_of_business": "Casualty",
+        "territory": "UK",
+        "total_insured_value": 9000000,
+        "limit": 11000000,
+        "attachment": 250000,
+        "deductible": 10000,
+        "loss_runs": [
+          {
+            "year": 2021,
+            "amount": 4000
+          },
+          {
+            "year": 2022,
+            "amount": 5000
+          },
+          {
+            "year": 2023,
+            "amount": 6000
+          },
+          {
+            "year": 2024,
+            "amount": 3000
+          },
+          {
+            "year": 2025,
+            "amount": 7000
+          }
+        ],
+        "inception_date": "2026-07-01"
+      }
+    },
+    {
+      "data_notice": "Synthetic; all records and numeric values are invented and illustrative.",
+      "submission_id": "SUB-008",
+      "documents": [
+        {
+          "kind": "cover_note",
+          "text": "Line of business: Property\nTerritory: US West\nLimit: 12,000,000\nAttachment: 1,000,000\nDeductible: 35,000\nInception date: 2026-13-01"
+        },
+        {
+          "kind": "schedule_of_values_summary",
+          "text": "Total insured value: 20,000,000\nCurrency: USD"
+        },
+        {
+          "kind": "loss_run_summary",
+          "text": "2021: $9,000\n2022: $12,000\n2023: $8,000\n2024: $11,000\n2025: $10,000"
+        }
+      ],
+      "expected": {
+        "insured": null,
+        "line_of_business": "Property",
+        "territory": "US West",
+        "total_insured_value": 20000000,
+        "limit": 12000000,
+        "attachment": 1000000,
+        "deductible": 35000,
+        "loss_runs": [
+          {
+            "year": 2021,
+            "amount": 9000
+          },
+          {
+            "year": 2022,
+            "amount": 12000
+          },
+          {
+            "year": 2023,
+            "amount": 8000
+          },
+          {
+            "year": 2024,
+            "amount": 11000
+          },
+          {
+            "year": 2025,
+            "amount": 10000
+          }
+        ],
+        "inception_date": "2026-13-01"
+      }
+    }
+  ]
+}
