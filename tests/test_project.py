@@ -7,7 +7,7 @@ from insure_ai.intake import FIELDS, extract_fields, intake_evaluation, process_
 from insure_ai.wording import all_clauses, ask, qa_evaluation, validate_citations
 from insure_ai.review import review_results
 from insure_ai.inventory import inventory_records, portfolio_insight
-from insure_ai.dashboard import render_dashboard, write_dashboard
+from insure_ai.dashboard import dashboard_data, render_dashboard, write_dashboard
 
 SUBS=load_json(DATA/"submissions"/"submissions.json")["submissions"]
 QUESTIONS=load_json(DATA/"wordings"/"evaluation_questions.json")["questions"]
@@ -161,9 +161,75 @@ def test_dashboard_file_matches_fresh_render():
 
 def test_dashboard_has_required_sections_and_synthetic_notice():
     html=render_dashboard()
-    for phrase in ("Evaluation overview","Submission intake outcomes","Design-authority review","Responsible AI control matrix","Owner role","Portfolio insight","[SYNTHETIC]"):
+    for phrase in ("Overview","Submission intake","Wording QA","Design authority","Responsible AI control matrix","Owner role","Portfolio insight","Architecture diagrams","[SYNTHETIC]"):
         assert phrase in html
     assert all(c["owner_role"] in html for c in load_json(DATA/"controls"/"rai_controls.json")["controls"])
+
+def test_dashboard_chart_values_match_the_cli_outputs():
+    data=dashboard_data()
+    html=render_dashboard()
+    embedded=re.search(r'<script id="dashboard-data" type="application/json">(.*?)</script>',html,re.S)
+    assert embedded and json.loads(embedded.group(1))==data
+    intake=intake_evaluation()
+    qa=qa_evaluation()
+    inventory=portfolio_insight()
+    assert [(item["numerator"],item["denominator"]) for item in data["kpis"]]==[
+        (intake["fields_correct"],intake["field_values_total"]),
+        (intake["human_review_count"],intake["labelled_submissions"]),
+        (intake["auto_accept_count"],None),
+        (qa["outcomes_correct"],qa["labelled_questions"]),
+        (qa["citation_ids_valid"],qa["citation_ids_total"]),
+        (qa["refusal_correct"],qa["refusal_total"]),
+        (inventory["use_case_count"],inventory["use_case_count"]),
+        (inventory["standards_adoption_numerator"],inventory["standards_adoption_denominator"]),
+    ]
+    assert data["intake"]["fields"]==[{"field":name,**values} for name,values in intake["field_accuracy_by_field"].items()]
+    assert data["intake"]["review_queue"]==[
+        {"submission_id":row["submission_id"],"reason_codes":row["reason_codes"]}
+        for row in process_submissions() if row["status"]=="HUMAN_REVIEW_REQUIRED"
+    ]
+    result_by_id={row["question_id"]:row for row in qa["results"]}
+    for item in data["wording"]["types"]:
+        outcome=next(outcome for outcome,label,key in (
+            ("ANSWERED","Supported","supported"),
+            ("INSUFFICIENT_EVIDENCE","Insufficient evidence","insufficient"),
+            ("WRONG_CONTRACT","Wrong contract","wrong-contract"),
+            ("CONFLICT","Conflict","conflict"),
+        ) if key==item["key"])
+        assert item["expected"]==sum(q["expected_outcome"]==outcome for q in QUESTIONS)
+        assert item["actual"]==sum(result_by_id[q["question_id"]]["actual_outcome"]==outcome for q in QUESTIONS)
+    assert all(row["citations"]==result_by_id[row["question_id"]]["citations"] for row in data["wording"]["questions"])
+    assert data["portfolio"]["platform_service_counts"]==inventory["platform_service_counts"]
+    assert data["portfolio"]["pattern_counts"]==inventory["pattern_counts"]
+    assert data["portfolio"]["standards_adoption_numerator"]==inventory["standards_adoption_numerator"]
+    assert data["portfolio"]["standards_adoption_denominator"]==inventory["standards_adoption_denominator"]
+    assert data["reviews"]==review_results()
+
+def test_dashboard_numeric_displays_have_synthetic_illustrative_basis():
+    html=render_dashboard()
+    kpis=re.findall(r'<article class="kpi">(.*?)</article>',html,re.S)
+    assert len(kpis)==8
+    assert all("synthetic" in item.lower() and "illustrative" in item.lower() for item in kpis)
+    svgs=re.findall(r"<svg\b.*?</svg>",html,re.S)
+    assert len(svgs)==4
+    for svg in svgs:
+        titles=re.findall(r"<title>(.*?)</title>",svg,re.S)
+        assert titles and all("synthetic" in title.lower() for title in titles)
+        assert "illustrative" in svg.lower()
+
+def test_dashboard_uses_only_the_pinned_mermaid_external_url():
+    html=render_dashboard()
+    urls=re.findall(r"https?://[^\"'\s<>]+",html)
+    assert urls==["https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"]
+    assert "id=\"layer-source\"" in html and "id=\"gate-source\"" in html
+    assert "flowchart LR" in html and "Described only" in html
+
+def test_dashboard_uses_copied_local_portfolio_favicons():
+    html=render_dashboard()
+    assert '<link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32">' in html
+    assert '<link rel="icon" href="favicon.ico" sizes="any">' in html
+    assert '<link rel="apple-touch-icon" href="apple-touch-icon.png">' in html
+    assert all((ROOT/"docs"/name).is_file() for name in ("favicon-32x32.png","favicon.ico","apple-touch-icon.png"))
 
 def _scan_paths():
     paths=[ROOT/"README.md",ROOT/"pyproject.toml",ROOT/"requirements-dev.txt",ROOT/".gitignore"]

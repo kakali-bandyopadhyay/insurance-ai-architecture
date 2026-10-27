@@ -53,10 +53,12 @@ def process_submissions() -> list[dict]:
 
 def intake_evaluation() -> dict:
     rows=load_json(DATA/"submissions"/"submissions.json")["submissions"]; matched=total=0
+    field_correct={field:0 for field in FIELDS}
     for row in rows:
         actual=extract_fields(row); expected=row["expected"]
         for field in FIELDS:
-            total+=1; matched+=int(actual.get(field)==expected.get(field))
+            correct=int(actual.get(field)==expected.get(field))
+            total+=1; matched+=correct; field_correct[field]+=correct
     processed=process_submissions(); review=sum(r["status"]=="HUMAN_REVIEW_REQUIRED" for r in processed)
-    return {"labelled_submissions":len(rows),"fields_correct":matched,"field_values_total":total,"field_level_accuracy":round(matched/total,4) if total else 0.0,"human_review_count":review,"failed_validation_count":review,"failed_items_routed_to_human_review":all(r["status"]=="HUMAN_REVIEW_REQUIRED" for r in processed if r["reason_codes"]),"auto_accept_count":0}
+    return {"labelled_submissions":len(rows),"fields_correct":matched,"field_values_total":total,"field_level_accuracy":round(matched/total,4) if total else 0.0,"field_accuracy_by_field":{field:{"correct":field_correct[field],"total":len(rows),"accuracy":round(field_correct[field]/len(rows),4) if rows else 0.0} for field in FIELDS},"human_review_count":review,"failed_validation_count":review,"failed_items_routed_to_human_review":all(r["status"]=="HUMAN_REVIEW_REQUIRED" for r in processed if r["reason_codes"]),"auto_accept_count":0}
 
