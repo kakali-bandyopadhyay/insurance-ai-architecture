@@ -159,10 +159,17 @@ def test_dashboard_file_matches_fresh_render():
     expected=render_dashboard(); write_dashboard()
     assert (ROOT/"docs"/"index.html").read_text(encoding="utf-8")==expected
 
-def test_dashboard_has_required_sections_and_synthetic_notice():
+def test_dashboard_has_required_sections_in_order_and_single_notice():
     html=render_dashboard()
-    for phrase in ("Overview","Submission intake","Wording QA","Design authority","Responsible AI control matrix","Owner role","Portfolio insight","Architecture diagrams","[SYNTHETIC]"):
+    expected=["problem","architecture","authority","controls","intake","wording","portfolio","evidence"]
+    sections=re.findall(r'<section id="([^"]+)"',html)
+    assert sections==expected
+    nav=re.search(r'<nav class="sticky".*?</nav>',html,re.S).group(0)
+    assert [href for href in re.findall(r'href="#([^"]+)"',nav)]==expected
+    for phrase in ("Problem","Architecture","Design authority","Controls","Intake","Wording QA","Portfolio","Evidence","Owner role","[SYNTHETIC]"):
         assert phrase in html
+    assert "id=\"architecture\"" in html
+    assert "SYNTHETIC / ILLUSTRATIVE" not in html
     assert all(c["owner_role"] in html for c in load_json(DATA/"controls"/"rai_controls.json")["controls"])
 
 def test_dashboard_chart_values_match_the_cli_outputs():
@@ -205,17 +212,18 @@ def test_dashboard_chart_values_match_the_cli_outputs():
     assert data["portfolio"]["standards_adoption_denominator"]==inventory["standards_adoption_denominator"]
     assert data["reviews"]==review_results()
 
-def test_dashboard_numeric_displays_have_synthetic_illustrative_basis():
+def test_dashboard_numeric_displays_explain_the_count_basis():
     html=render_dashboard()
     kpis=re.findall(r'<article class="kpi">(.*?)</article>',html,re.S)
     assert len(kpis)==8
-    assert all("synthetic" in item.lower() and "illustrative" in item.lower() for item in kpis)
+    assert all(re.search(r'<strong>[^<]+</strong>.*?<b>[^<]+</b>.*?<small>[^<]+</small>',item,re.S) for item in kpis)
+    assert "72 of 72 labelled field values matched." in html
+    assert "3 of 8 submission packs were routed to human review." in html
     svgs=re.findall(r"<svg\b.*?</svg>",html,re.S)
     assert len(svgs)==4
     for svg in svgs:
         titles=re.findall(r"<title>(.*?)</title>",svg,re.S)
-        assert titles and all("synthetic" in title.lower() for title in titles)
-        assert "illustrative" in svg.lower()
+        assert titles
 
 def test_dashboard_uses_only_the_pinned_mermaid_external_url():
     html=render_dashboard()
