@@ -1,0 +1,34 @@
+flowchart TB
+  subgraph I[Implemented]
+    direction LR
+    IN[Intake and validation]
+    HR[Human review queue]
+    RET[Clause retrieval]
+    GU[Citation and refusal checks]
+    EV[Evaluation outputs]
+    DA[Design-authority review]
+    PI[Portfolio insight]
+    DB[Dashboard]
+  end
+  subgraph D[Described only]
+    direction LR
+    OCR[OCR and classification]
+    GW[Model gateway]
+    PII[PII and injection controls]
+    IAM[Production identity]
+    OBS[Telemetry and monitoring]
+    AUD[Append-only audit service]
+  end
+  IN --> HR
+  RET --> GU --> EV
+  IN --> EV --> DA --> PI --> DB
+  OCR -.-> IN
+  GW -.-> RET
+  PII -.-> GU
+  IAM -.-> HR
+  OBS -.-> GW
+  AUD -.-> DA
+  classDef implemented fill:#dcefe8,stroke:#187b68,color:#133c35,stroke-width:2px
+  classDef described fill:#fff0d6,stroke:#c27a18,color:#50320d,stroke-dasharray:5 4
+  class IN,HR,RET,GU,EV,DA,PI,DB implemented
+  class OCR,GW,PII,IAM,OBS,AUD described

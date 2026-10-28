@@ -166,11 +166,21 @@ def test_dashboard_has_required_sections_in_order_and_single_notice():
     assert sections==expected
     nav=re.search(r'<nav class="sticky".*?</nav>',html,re.S).group(0)
     assert [href for href in re.findall(r'href="#([^"]+)"',nav)]==expected
-    for phrase in ("Problem","Architecture","Design authority","Controls","Intake","Wording QA","Portfolio","Evidence","Owner role","[SYNTHETIC]"):
+    for phrase in ("Context","Architecture","Design authority","Controls","Intake","Wording QA","Portfolio","Evidence","Owner role","[SYNTHETIC]"):
         assert phrase in html
     assert "id=\"architecture\"" in html
     assert "SYNTHETIC / ILLUSTRATIVE" not in html
-    assert all(c["owner_role"] in html for c in load_json(DATA/"controls"/"rai_controls.json")["controls"])
+    assert all(c["owner_role"].removeprefix("Synthetic ") in html for c in load_json(DATA/"controls"/"rai_controls.json")["controls"])
+
+def test_dashboard_source_links_are_absolute_and_resolve_to_repo_files():
+    html=render_dashboard()
+    prefix="https://github.com/kakali-bandyopadhyay/insurance-ai-architecture/blob/main/"
+    links=re.findall(r'<a href="([^"]+)">View source</a>',html)
+    assert links
+    for link in links:
+        assert link.startswith(prefix)
+        repo_path=link[len(prefix):].split("#",1)[0]
+        assert (ROOT/repo_path).is_file(), repo_path
 
 def test_dashboard_chart_values_match_the_cli_outputs():
     data=dashboard_data()
@@ -228,9 +238,21 @@ def test_dashboard_numeric_displays_explain_the_count_basis():
 def test_dashboard_uses_only_the_pinned_mermaid_external_url():
     html=render_dashboard()
     urls=re.findall(r"https?://[^\"'\s<>]+",html)
-    assert urls==["https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"]
-    assert "id=\"layer-source\"" in html and "id=\"gate-source\"" in html
+    external_assets=[url for url in urls if not url.startswith("https://github.com/kakali-bandyopadhyay/insurance-ai-architecture/blob/main/")]
+    assert external_assets==["https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"]
+    assert "id=\"gate-source\"" in html
     assert "flowchart LR" in html and "Described only" in html
+
+def test_reference_architecture_static_svg_is_referenced_and_exists():
+    html=render_dashboard()
+    asset="img/reference_architecture.svg"
+    assert f'href="{asset}"' in html and f'src="{asset}"' in html
+    assert (ROOT/"docs"/asset).is_file()
+    source=(ROOT/"docs"/"diagrams"/"reference_architecture.mmd").read_text(encoding="utf-8")
+    assert source.startswith("flowchart TB")
+    assert source.index("subgraph I[Implemented]") < source.index("subgraph D[Described only]")
+    assert source.count("direction LR")==2
+    assert "future" not in source
 
 def test_dashboard_uses_root_absolute_portfolio_favicons():
     html=render_dashboard()
