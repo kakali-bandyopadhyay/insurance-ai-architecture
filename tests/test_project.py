@@ -1,6 +1,7 @@
 from __future__ import annotations
 import importlib, json, re, subprocess, sys
 from pathlib import Path
+import xml.etree.ElementTree as ET
 import pytest
 from insure_ai.dataio import ROOT, DATA, load_json
 from insure_ai.intake import FIELDS, extract_fields, intake_evaluation, process_submissions
@@ -8,12 +9,23 @@ from insure_ai.wording import all_clauses, ask, qa_evaluation, validate_citation
 from insure_ai.review import review_results
 from insure_ai.inventory import inventory_records, portfolio_insight
 from insure_ai.dashboard import dashboard_data, render_dashboard, write_dashboard
+from scripts.fix_svg_size import fix_svg_size
 
 SUBS=load_json(DATA/"submissions"/"submissions.json")["submissions"]
 QUESTIONS=load_json(DATA/"wordings"/"evaluation_questions.json")["questions"]
 
 def test_fixed_schema_has_expected_fields():
     assert len(FIELDS)==9 and set(FIELDS)==set(SUBS[0]["expected"])
+
+def test_fix_svg_size_uses_viewbox_pixels_and_removes_max_width(tmp_path):
+    svg=tmp_path/"fixture.svg"
+    svg.write_text('<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 320 180" style="width:100%; max-width:100%; color:red; max-width:80vw"><rect width="1" height="1"/></svg>',encoding="utf-8")
+    fix_svg_size(svg)
+    root=ET.parse(svg).getroot()
+    assert root.get("width")=="320px" and root.get("height")=="180px"
+    assert "max-width" not in root.get("style","").lower()
+    assert "width:100%" in root.get("style","") and "color:red" in root.get("style","")
+    assert not svg.read_bytes().startswith(b"\xef\xbb\xbf")
 
 @pytest.mark.parametrize("row",SUBS,ids=lambda r:r["submission_id"])
 def test_extraction_matches_prelabelled_expected_fields(row):
@@ -235,24 +247,80 @@ def test_dashboard_numeric_displays_explain_the_count_basis():
         titles=re.findall(r"<title>(.*?)</title>",svg,re.S)
         assert titles
 
-def test_dashboard_uses_only_the_pinned_mermaid_external_url():
+def test_dashboard_loads_no_external_mermaid_script():
     html=render_dashboard()
-    urls=re.findall(r"https?://[^\"'\s<>]+",html)
-    external_assets=[url for url in urls if not url.startswith("https://github.com/kakali-bandyopadhyay/insurance-ai-architecture/blob/main/")]
-    assert external_assets==["https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"]
-    assert "id=\"gate-source\"" in html
-    assert "flowchart LR" in html and "Described only" in html
+    script_urls=re.findall(r'<script\b[^>]*\bsrc=["\']([^"\']+)',html,re.I)
+    assert not any("mermaid" in url.lower() for url in script_urls)
+    assert "gate-source" not in html and "mermaid.min.js" not in html
 
-def test_reference_architecture_static_svg_is_referenced_and_exists():
+def test_dashboard_diagram_svgs_are_referenced_and_exist():
     html=render_dashboard()
-    asset="img/reference_architecture.svg"
-    assert f'href="{asset}"' in html and f'src="{asset}"' in html
-    assert (ROOT/"docs"/asset).is_file()
+    for asset in ("img/reference_architecture.svg","img/gate_flow.svg"):
+        assert f'href="{asset}"' in html and f'src="{asset}"' in html
+        assert (ROOT/"docs"/asset).is_file(), asset
+
+def test_architecture_svg_images_share_the_same_render_scale():
+    html=render_dashboard()
+    percentages=[]
+    view_widths=[]
+    for asset in ("img/reference_architecture.svg","img/gate_flow.svg"):
+        img=re.search(rf'<img src="{re.escape(asset)}" style="([^"]+)"',html)
+        assert img
+        style=img.group(1)
+        percentage=float(re.search(r"width:([0-9.]+)%",style).group(1))
+        assert "height:auto" in style and "display:block" in style and "max-width" not in style
+        root=ET.parse(ROOT/"docs"/asset).getroot()
+        view_box=root.get("viewBox")
+        assert view_box
+        view_width=float(re.split(r"[\s,]+",view_box.strip())[2])
+        percentages.append(percentage)
+        view_widths.append(view_width)
+    assert percentages[0]==100
+    expected_ratio=view_widths[1]/view_widths[0]
+    actual_ratio=percentages[1]/percentages[0]
+    assert abs(actual_ratio-expected_ratio)/expected_ratio <= .01
+
+def test_reference_architecture_mermaid_source_layout():
     source=(ROOT/"docs"/"diagrams"/"reference_architecture.mmd").read_text(encoding="utf-8")
-    assert source.startswith("flowchart TB")
-    assert source.index("subgraph I[Implemented]") < source.index("subgraph D[Described only]")
+    assert source.startswith("flowchart LR")
+    assert source.index("subgraph D[Described only]") < source.index("subgraph I[Implemented]")
     assert source.count("direction LR")==2
     assert "future" not in source
+    assert "~~~" not in source
+    gate_source=(ROOT/"docs"/"diagrams"/"gate_flow.mmd").read_text(encoding="utf-8")
+    assert gate_source.strip()=="""flowchart LR
+  C[Concept] --> D[Design] --> P[Pre-production] --> L[Post-launch]
+  classDef gate fill:#dcefe8,stroke:#187b68,color:#133c35,stroke-width:2px
+  class C,D,P,L gate"""
+
+def test_dashboard_diagram_and_stacked_chart_css_limits():
+    html=render_dashboard()
+    required_css=(
+        ".diagrams{grid-template-columns:1fr}",
+        ".architecture-scroll{width:100%;max-width:100%;overflow-x:auto;overflow-y:hidden;padding:16px}",
+        ".architecture-scroll figure{width:100%;margin:0}",
+        ".architecture-scroll img{display:block;height:auto}",
+        ".outcome-chart-container{width:100%;max-width:900px;max-height:160px;overflow-x:auto;overflow-y:hidden}",
+        ".outcome-chart-content{width:900px;height:160px}",
+        ".outcome-chart{width:900px;height:120px;max-width:none}",
+        ".outcome-chart .seg{font-size:15px}",
+        ".outcome-chart .row-label,.outcome-chart .val{font-size:16px}",
+        ".pass,.implemented,.condition-status,.described-only,.return,.status-key span,.pill,.heat button{white-space:nowrap;overflow-wrap:normal;word-break:normal}",
+        ".table-scroll{width:100%;max-width:100%;overflow-x:auto}",
+    )
+    assert all(rule in html for rule in required_css)
+    assert "min-width:900px" not in html
+    assert ".architecture-scroll img{display:block;width:100%" not in html
+    assert "max-width:1400px" not in html
+
+def test_design_authority_use_case_cell_and_legend_layout():
+    html=render_dashboard()
+    for row in review_results():
+        name=row["use_case"].replace("_"," ").title().replace(" Qa"," QA")
+        assert f'<th data-label="Use case">{name}</th>' in html
+        assert f'<td data-label="Outcome"><b>{row["outcome"]}</b></td>' in html
+    assert '<div class="status-key"><span class="pass">PASS</span><span class="condition-status">CONDITION</span><span class="return">RETURN</span></div>' in html
+    assert "Wording Qa" not in html and "Wording QA" in html
 
 def test_dashboard_uses_root_absolute_portfolio_favicons():
     html=render_dashboard()

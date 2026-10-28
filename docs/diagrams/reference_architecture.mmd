@@ -1,4 +1,13 @@
-flowchart TB
+flowchart LR
+  subgraph D[Described only]
+    direction LR
+    OCR[OCR and classification]
+    GW[Model gateway]
+    PII[PII and injection controls]
+    IAM[Production identity]
+    OBS[Telemetry and monitoring]
+    AUD[Append-only audit service]
+  end
   subgraph I[Implemented]
     direction LR
     IN[Intake and validation]
@@ -9,15 +18,6 @@ flowchart TB
     DA[Design-authority review]
     PI[Portfolio insight]
     DB[Dashboard]
-  end
-  subgraph D[Described only]
-    direction LR
-    OCR[OCR and classification]
-    GW[Model gateway]
-    PII[PII and injection controls]
-    IAM[Production identity]
-    OBS[Telemetry and monitoring]
-    AUD[Append-only audit service]
   end
   IN --> HR
   RET --> GU --> EV
