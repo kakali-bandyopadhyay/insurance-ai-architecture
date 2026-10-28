@@ -224,12 +224,10 @@ def test_dashboard_uses_only_the_pinned_mermaid_external_url():
     assert "id=\"layer-source\"" in html and "id=\"gate-source\"" in html
     assert "flowchart LR" in html and "Described only" in html
 
-def test_dashboard_uses_copied_local_portfolio_favicons():
+def test_dashboard_uses_root_absolute_portfolio_favicons():
     html=render_dashboard()
-    assert '<link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32">' in html
-    assert '<link rel="icon" href="favicon.ico" sizes="any">' in html
-    assert '<link rel="apple-touch-icon" href="apple-touch-icon.png">' in html
-    assert all((ROOT/"docs"/name).is_file() for name in ("favicon-32x32.png","favicon.ico","apple-touch-icon.png"))
+    assert '<link rel="icon" href="/assets/favicon-32x32.png" sizes="32x32">' in html
+    assert '<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">' in html
 
 def _scan_paths():
     paths=[ROOT/"README.md",ROOT/"pyproject.toml",ROOT/"requirements-dev.txt",ROOT/".gitignore"]
